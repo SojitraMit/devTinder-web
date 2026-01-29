@@ -24,11 +24,10 @@ const Body = () => {
 
       dispatch(addUser(user.data));
     } catch (err) {
+      console.error(err.message);
       if (err.status === 401) {
         return navigate("/login");
       }
-
-      console.error(err.message);
     }
   };
 
