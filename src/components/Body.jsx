@@ -23,6 +23,7 @@ const Body = () => {
       );
 
       dispatch(addUser(user.data));
+      //navigate("/feed");
     } catch (err) {
       console.error(err.message);
       if (err.status === 401) {

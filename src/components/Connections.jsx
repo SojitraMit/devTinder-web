@@ -31,11 +31,11 @@ const Connections = () => {
   if (connections.length === 0) return <h1>No connections found</h1>;
   return (
     <div className="min-h-screen   p-6  mx-auto">
-      <h1 className="text-2xl font-semibold text-white mb-6 flex justify-center">
+      <h1 className="text-3xl  font-bold text-green-100 mb-8  flex justify-center">
         Your Connections
       </h1>
 
-      <HorizontalCard connections={connections} />
+      <HorizontalCard connections={connections} type="connection" />
     </div>
   );
 };
