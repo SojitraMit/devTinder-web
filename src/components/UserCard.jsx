@@ -1,9 +1,28 @@
 /* eslint-disable no-unused-vars */
+import axios from "axios";
 import React, { useState } from "react";
+import { BASE_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { removeFeed } from "../utils/feedSlice";
 
 const UserCard = ({ user }) => {
-  const { firstName, lastName, photoUrl, skills, about, age, gender } = user;
+  const { firstName, lastName, photoUrl, skills, about, age, gender, _id } =
+    user;
   const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleSendRequest = async (status, _id) => {
+    try {
+      await axios.post(
+        BASE_URL + "/request/send/" + status + "/" + _id,
+        {},
+        { withCredentials: true },
+      );
+      dispatch(removeFeed(_id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div
@@ -56,24 +75,30 @@ const UserCard = ({ user }) => {
           <p className=" flex gap-4 text-white font-bold">
             {" "}
             <span>
-              <span className="font-extrabold  text-black">Age:</span>{" "}
-              {age}{" "}
+              <span className="font-extrabold   text-cyan-200">Age:</span> {age}{" "}
+              Yr. ,
             </span>
             <span>
-              <span className="font-extrabold text-black">Gender:</span>{" "}
+              <span className="font-extrabold text-cyan-200 backdrop-blur-sm">
+                Gender:
+              </span>{" "}
               {gender}
             </span>
           </p>
         )}
         {skills && (
           <p>
-            <span className=" text-black font-extrabold">Skills:</span>{" "}
+            <span className="  text-cyan-200 font-extrabold backdrop-blur-sm">
+              Skills:
+            </span>{" "}
             <span className="text-white font-bold">{skills.join(", ")}</span>
           </p>
         )}
         <div className="">
           <p className={!show ? "line-clamp-2" : ""}>
-            <span className="font-extrabold text-black ">About:</span>{" "}
+            <span className="font-extrabold  text-cyan-200 backdrop-blur-sm ">
+              About:
+            </span>{" "}
             <span className="text-white font-bold">{about}</span>
           </p>
           {about.length > 93 && (
@@ -88,13 +113,15 @@ const UserCard = ({ user }) => {
 
         <div className="card-actions justify-between">
           <button
-            className="btn btn-primary w-36 hover:brightness-110
- hover:scale-110 duration-300 hover:text-black hover:font-bold transition-all">
+            className="btn btn-outline btn-error backdrop-blur-2xl border-2 text-[15px] font-extrabold rounded-2xl w-36 hover:brightness-110
+ hover:scale-110 duration-300 hover:text-black hover:font-extrabold transition-all"
+            onClick={() => handleSendRequest("ignored", _id)}>
             Ignored
           </button>
           <button
-            className="btn btn-secondary hover:brightness-110
- w-36 hover:scale-110 hover:font-bold hover:text-black duration-300 transition-all">
+            className="btn btn-outline btn-success backdrop-blur-2xl font-extrabold border-2 text-[15px] rounded-2xl   hover:brightness-110
+ w-36 hover:scale-110 hover:font-extrabold hover:text-black duration-300 transition-all"
+            onClick={() => handleSendRequest("interested", _id)}>
             Interested
           </button>
         </div>

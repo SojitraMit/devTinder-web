@@ -27,11 +27,17 @@ const Connections = () => {
     fetchConnections();
   }, []);
 
-  if (!connections) return null;
+  if (!connections)
+    return (
+      <div className="flex h-screen justify-center my-auto">
+        {" "}
+        <span className="loading loading-dots loading-xl "></span>
+      </div>
+    );
   if (connections.length === 0) return <h1>No connections found</h1>;
   return (
     <div className="min-h-screen   p-6  mx-auto">
-      <h1 className="text-3xl  font-bold text-green-100 mb-8  flex justify-center">
+      <h1 className="text-3xl  font-bold  text-[#67E8F9]  mb-8     flex justify-center">
         Your Connections
       </h1>
 

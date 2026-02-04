@@ -27,8 +27,18 @@ const Feed = () => {
     getFeed();
     // }
   }, []);
+
+  if (!feed) {
+    return (
+      <div className="flex h-screen justify-center my-auto">
+        {" "}
+        <span className="loading loading-dots loading-xl "></span>
+      </div>
+    );
+  }
+
   if (!Array.isArray(feed) || feed.length === 0) {
-    return <p className="text-center mt-10">No users found</p>;
+    return <p className="text-center mt-10">No New Users found!!</p>;
   }
   return (
     <div className="flex justify-center items-center mt-5">

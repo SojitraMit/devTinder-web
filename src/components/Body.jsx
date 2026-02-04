@@ -25,7 +25,7 @@ const Body = () => {
       dispatch(addUser(user.data));
       //navigate("/feed");
     } catch (err) {
-      console.error(err.message);
+      console.error(err);
       if (err.status === 401) {
         return navigate("/login");
       }

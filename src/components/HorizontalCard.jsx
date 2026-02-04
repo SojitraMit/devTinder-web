@@ -1,10 +1,30 @@
-import React from "react";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { removeRequest } from "../utils/requestSlice";
 
 const HorizontalCard = ({ connections, type }) => {
+  const isConnection = type === "connection";
+  const dispatch = useDispatch();
+
+  const reviewRequest = async (status, _id) => {
+    try {
+      await axios.post(
+        BASE_URL + "/request/review/" + status + "/" + _id,
+        {},
+        { withCredentials: true },
+      );
+      dispatch(removeRequest(_id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="    ">
       {connections.map((connection) => {
-        const user = type === "connection" ? connection : connection.fromUserId;
+        const _id = connection._id;
+        const user = isConnection ? connection : connection.fromUserId;
 
         if (!user) return null;
 
@@ -14,15 +34,14 @@ const HorizontalCard = ({ connections, type }) => {
         return (
           <div
             key={connection._id}
-            className="flex mx-auto my-6 h-[150px] w-[800px] border-2 shadow-2xl border-black rounded-2xl bg-[#15191E]">
+            className="flex mx-auto my-6 h-[150px] w-[800px] hover:shadow-cyan-700/40 border-2 shadow-2xl border-black rounded-2xl bg-[#15191E]">
             <div className="h-[150px]">
               <img
-                className="py-1 mx-3 h-36 ml-2 w-36 rounded-full object-cover"
+                className="py-1 mx-3 h-36 ml-2 w-36  rounded-full object-cover"
                 src={photoUrl}
                 alt={`${firstName} ${lastName}`}
               />
             </div>
-
             <div className="ml-6 pt-1 space-y-1 w-[430px]">
               <h1 className="font-bold text-xl">
                 {firstName} {lastName}
@@ -49,6 +68,30 @@ const HorizontalCard = ({ connections, type }) => {
                 {about}
               </p>
             </div>
+            {isConnection ? (
+              <div className="text-center flex-row space-y-4  my-auto  p-6">
+                {" "}
+                <button className="btn btn-outline hover:shadow-gray-500 hover:bg-gray-500">
+                  More Info
+                </button>
+              </div>
+            ) : (
+              <div className="text-center flex-row space-y-4  my-auto  p-6">
+                <button className="btn btn-outline hover:bg-gray-500">
+                  More Info
+                </button>
+                <br></br>
+                <div className="flex gap-2">
+                  {" "}
+                  <button
+                    className="btn btn-outline btn-success"
+                    onClick={() => reviewRequest("accepted", _id)}>
+                    Accept
+                  </button>
+                  <button className="btn btn-outline  btn-error">Reject</button>
+                </div>
+              </div>
+            )}
           </div>
         );
       })}

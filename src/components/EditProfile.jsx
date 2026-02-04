@@ -16,7 +16,7 @@ const EditProfile = ({ user }) => {
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
   const [about, setAbout] = useState(user.about);
   const [emailId, setEmailId] = useState(user.emailId);
-  const [skills, setSkills] = useState(user.skills);
+  const [skills, setSkills] = useState(user.skills || []);
   const [errorMessage, setErrorMessage] = useState();
   const [save, setSave] = useState(false);
   const dispatch = useDispatch();
