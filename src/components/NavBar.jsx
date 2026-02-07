@@ -24,9 +24,58 @@ const NavBar = () => {
   return (
     <div className="navbar bg-base-300 shadow-sm">
       <div className="flex-1">
-        <Link to="/feed" className="btn btn-ghost text-xl">
-          daisyUI
-        </Link>
+        <svg
+          width="240"
+          height="55"
+          viewBox="0 0 240 64"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="cursor-pointer"
+          onClick={() => navigate("/feed")}>
+          <rect
+            x="4"
+            y="8"
+            width="56"
+            height="48"
+            rx="8"
+            fill="#020617"
+            stroke="#22C55E"
+            stroke-width="2"
+          />
+
+          <circle cx="14" cy="18" r="3" fill="#22C55E" />
+          <circle cx="24" cy="18" r="3" fill="#22C55E" />
+          <circle cx="34" cy="18" r="3" fill="#22C55E" />
+
+          <text
+            x="14"
+            y="42"
+            font-size="16"
+            fill="#22C55E"
+            font-family="monospace"
+            font-weight="700">
+            &gt;_
+          </text>
+
+          <text
+            x="80"
+            y="36"
+            font-size="26"
+            font-weight="700"
+            fill="#E5E7EB"
+            font-family="Inter, system-ui, sans-serif">
+            Dev<tspan fill="#22C55E">Tinder</tspan>
+          </text>
+
+          <text
+            x="80"
+            y="54"
+            font-size="12"
+            fill="#94A3B8"
+            font-family="Inter, system-ui, sans-serif">
+            Connect. Build. Collaborate.
+          </text>
+        </svg>
       </div>
       {user && (
         <div className="flex gap-16">
@@ -89,9 +138,7 @@ const NavBar = () => {
                     <span className="badge">New</span>
                   </Link>
                 </li>
-                <li>
-                  <a>Settings</a>
-                </li>
+
                 <li>
                   <a onClick={handleLogout}>Logout</a>
                 </li>

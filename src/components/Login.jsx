@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 
 const Login = () => {
-  const [isLoginForm, setIsLoginForm] = useState(false);
+  const [isLoginForm, setIsLoginForm] = useState(true);
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -28,7 +28,7 @@ const Login = () => {
         },
         { withCredentials: true },
       );
-      console.log(res.data);
+
       dispatch(addUser(res.data));
       navigate("/feed");
     } catch (err) {
@@ -51,7 +51,7 @@ const Login = () => {
         },
         { withCredentials: true },
       );
-      console.log(res.data);
+
       dispatch(addUser(res.data.data));
       navigate("/feed");
     } catch (err) {
@@ -62,16 +62,62 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen px-4 pb-16">
-      <div className="flex w-[800px]  rounded-xl overflow-hidden shadow-xl">
+      <div className="flex w-[800px]  rounded-xl overflow-hidden shadow-2xl">
         {/* Left Side – Branding */}
-        <div className="w-1/2  flex flex-col justify-center items-center text-white p-10">
-          <h1 className="text-4xl font-extrabold mb-4">Dev-Tinder</h1>
+        <div className="w-[500px] flex flex-col justify-center items-center text-white p-10 space-y-5">
+          <h1 className="text-4xl font-extrabold mb-2">Dev-Tinder</h1>
+
           <p className="text-center text-blue-200">
             Connect with developers.
             <br />
             Build. Match. Collaborate.
           </p>
+
+          {/* Highlight features */}
+          <div className="mt-2  text-blue-100 text-sm max-w-sm">
+            <h3 className="text-white font-semibold mb-2">📌 Features</h3>
+            <ul className="space-y-1 text-white/80">
+              <li>
+                🤝{" "}
+                <span className="font-medium text-gray-400">
+                  Connect with Developers
+                </span>{" "}
+                – Send & accept requests
+              </li>
+              <li className="">
+                🏠{" "}
+                <span className="font-medium text-gray-400">
+                  Developer Profiles
+                </span>{" "}
+                – Create and customize your profile
+              </li>
+
+              <li>
+                🔒{" "}
+                <span className="font-medium text-gray-400">
+                  Authentication
+                </span>{" "}
+                – Secure login & signup using JWT
+              </li>
+
+              <li>
+                ✏️{" "}
+                <span className="font-medium text-gray-400 ">Edit Profile</span>{" "}
+                – Update skills, bio & details
+              </li>
+              <li>
+                📩{" "}
+                <span className="font-medium text-gray-400">
+                  Connection Requests
+                </span>{" "}
+                – Send & manage invites
+              </li>
+            </ul>
+          </div>
+
+          {/* Short description */}
         </div>
+
         <div className="card card-border bg-base-300 w-[600px] rounded-xl">
           <div className="card-body">
             <h2 className="card-title mx-auto text-2xl">

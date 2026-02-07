@@ -1,14 +1,16 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addUser } from "../utils/userSlice";
 import { BASE_URL } from "../utils/constants";
 import axios from "axios";
 import UserCard from "./UserCard";
+import InfoCard from "./InfoCard";
 
 const EditProfile = ({ user }) => {
   // const { firstName, lastName, photoUrl, skills, about, age, gender } = user;
+  const _id = user._id;
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [age, setAge] = useState(user.age);
@@ -16,8 +18,16 @@ const EditProfile = ({ user }) => {
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
   const [about, setAbout] = useState(user.about);
   const [emailId, setEmailId] = useState(user.emailId);
+  const [gitHubUrl, setGithubUrl] = useState(
+    user.github || "https://github.com/",
+  );
+  const [linkedInUrl, setLinkedInUrl] = useState(
+    user.linkedin || "https://www.linkedin.com/",
+  );
   const [skills, setSkills] = useState(user.skills || []);
   const [errorMessage, setErrorMessage] = useState();
+  const infoShow = useSelector((store) => store.info.show);
+  const infoData = useSelector((store) => store.info.data);
   const [save, setSave] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,6 +46,8 @@ const EditProfile = ({ user }) => {
           skills,
           photoUrl,
           about,
+          gitHubUrl,
+          linkedInUrl,
         },
         { withCredentials: true },
       );
@@ -69,6 +81,18 @@ const EditProfile = ({ user }) => {
             />
           </svg>
           <span>Profile updated successfully!!</span>
+        </div>
+      )}
+
+      {infoShow && (
+        <div
+          className="fixed inset-0  backdrop-blur-xs 
+           flex justify-center items-center z-50 transition-opacity">
+          {!infoData ? (
+            <span className="loading loading-bars loading-xl"></span>
+          ) : (
+            <InfoCard />
+          )}
         </div>
       )}
 
@@ -133,7 +157,7 @@ const EditProfile = ({ user }) => {
               </div>
 
               {/* Age + Gender */}
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-4 gap-2">
                 <fieldset className="fieldset">
                   <label className="fieldset-legend">Age</label>
                   <input
@@ -155,6 +179,24 @@ const EditProfile = ({ user }) => {
                     <option>Other</option>
                   </select>
                 </fieldset>
+                <fieldset className="fieldset">
+                  <label className="fieldset-legend">GitHub</label>
+                  <input
+                    type="text"
+                    className="input input-sm input-bordered w-full"
+                    value={gitHubUrl}
+                    onChange={(e) => setGithubUrl(e.target.value)}
+                  />
+                </fieldset>
+                <fieldset className="fieldset">
+                  <label className="fieldset-legend">LinkedIn</label>
+                  <input
+                    type="text"
+                    className="input input-sm input-bordered w-full"
+                    value={linkedInUrl}
+                    onChange={(e) => setLinkedInUrl(e.target.value)}
+                  />
+                </fieldset>
               </div>
 
               {/* Skills */}
@@ -172,6 +214,9 @@ const EditProfile = ({ user }) => {
                       MongoDB
                     </span>
                   </div>
+                  <p className="mt-2 ml-2 text-xs text-gray-500">
+                    ( use "," to separate skills )
+                  </p>
                 </div>
 
                 <input
@@ -216,7 +261,18 @@ const EditProfile = ({ user }) => {
         <div className="my-auto">
           {" "}
           <UserCard
-            user={{ firstName, lastName, age, gender, skills, photoUrl, about }}
+            user={{
+              _id,
+              firstName,
+              lastName,
+              age,
+              gender,
+              skills,
+              photoUrl,
+              about,
+              gitHubUrl,
+              linkedInUrl,
+            }}
           />
         </div>
       </div>

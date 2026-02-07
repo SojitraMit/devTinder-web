@@ -3,8 +3,11 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { removeRequest } from "../utils/requestSlice";
 
+import { addInfo, addShow } from "../utils/infoSlice";
+
 const HorizontalCard = ({ connections, type }) => {
   const isConnection = type === "connection";
+
   const dispatch = useDispatch();
 
   const reviewRequest = async (status, _id) => {
@@ -20,16 +23,39 @@ const HorizontalCard = ({ connections, type }) => {
     }
   };
 
+  const fetchUserInfo = async (userInfoId) => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/user/info/" + userInfoId,
+        {},
+        { withCredentials: true },
+      );
+      dispatch(addInfo(res.data.data));
+      dispatch(addShow(true));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="    ">
       {connections.map((connection) => {
-        const _id = connection._id;
+        console.log(connection);
+        const connectionId = connection._id;
         const user = isConnection ? connection : connection.fromUserId;
 
         if (!user) return null;
 
-        const { firstName, lastName, age, gender, skills, about, photoUrl } =
-          user;
+        const {
+          firstName,
+          lastName,
+          age,
+          gender,
+          skills,
+          about,
+          photoUrl,
+          _id,
+        } = user;
 
         return (
           <div
@@ -71,13 +97,17 @@ const HorizontalCard = ({ connections, type }) => {
             {isConnection ? (
               <div className="text-center flex-row space-y-4  my-auto  p-6">
                 {" "}
-                <button className="btn btn-outline hover:shadow-gray-500 hover:bg-gray-500">
+                <button
+                  className="btn btn-outline hover:shadow-gray-500 hover:bg-gray-500"
+                  onClick={() => fetchUserInfo(_id)}>
                   More Info
                 </button>
               </div>
             ) : (
               <div className="text-center flex-row space-y-4  my-auto  p-6">
-                <button className="btn btn-outline hover:bg-gray-500">
+                <button
+                  className="btn btn-outline hover:bg-gray-500"
+                  onClick={() => fetchUserInfo(_id)}>
                   More Info
                 </button>
                 <br></br>
@@ -85,10 +115,14 @@ const HorizontalCard = ({ connections, type }) => {
                   {" "}
                   <button
                     className="btn btn-outline btn-success"
-                    onClick={() => reviewRequest("accepted", _id)}>
+                    onClick={() => reviewRequest("accepted", connectionId)}>
                     Accept
                   </button>
-                  <button className="btn btn-outline  btn-error">Reject</button>
+                  <button
+                    className="btn btn-outline  btn-error"
+                    onClick={() => reviewRequest("rejected", connectionId)}>
+                    Reject
+                  </button>
                 </div>
               </div>
             )}
