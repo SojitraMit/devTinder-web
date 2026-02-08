@@ -67,7 +67,7 @@ const EditProfile = ({ user }) => {
   return (
     <>
       {save && (
-        <div role="alert" className="alert alert-success w-96 z-10 absolute">
+        <div role="alert" className="alert alert-success w-96 z-10 absolute ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 shrink-0 stroke-current"
@@ -96,9 +96,9 @@ const EditProfile = ({ user }) => {
         </div>
       )}
 
-      <div className="flex justify-center gap-10 items-center">
+      <div className="flex justify-center gap-10 items-center ">
         <div className=" w-[616px] flex justify-center items-start pt-3  text-blue-200">
-          <div className="card w-full max-w-lg bg-base-300 shadow-lg rounded-xl">
+          <div className="card w-full max-w-lg bg-base-300  rounded-xl shadow-2xl shadow-slate-800/80">
             <div className="card-body space-y-0">
               <h2 className="text-lg font-bold text-center text-white">
                 Edit Profile

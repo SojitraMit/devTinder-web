@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
 import { NavLink } from "react-router-dom";
+import Lottie from "lottie-react";
 
 const NavBar = () => {
   const user = useSelector((store) => store.user);
@@ -112,6 +113,17 @@ const NavBar = () => {
                       : "text-gray-300 hover:text-white transition-all duration-300"
                   }>
                   Requests
+                </NavLink>
+              </li>
+              <li className="hover:text-blue-500">
+                <NavLink
+                  to="/premium"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-yellow-300 text-black p-2 font-bold rounded-2xl transition-all duration-300"
+                      : "text-yellow-300 font-semibold  transition-all duration-300"
+                  }>
+                  Premium{" "}
                 </NavLink>
               </li>
             </ul>

@@ -6,6 +6,8 @@ import { BASE_URL } from "../utils/constants";
 import { addFeed } from "../utils/feedSlice";
 import UserCard from "./UserCard";
 import InfoCard from "./InfoCard";
+import Lottie from "lottie-react";
+import noDataAnimation from "../assets/No-Data.json";
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -41,9 +43,12 @@ const Feed = () => {
 
   if (!Array.isArray(feed) || feed.length === 0) {
     return (
-      <p className=" flex justify-center h-screen items-center ">
-        No New Users found!!
-      </p>
+      <div className="flex flex-col justify-center items-center h-screen">
+        <div className="w-64">
+          <Lottie animationData={noDataAnimation} loop />
+        </div>
+        <p className=" text-gray-500">No new users found!!</p>
+      </div>
     );
   }
   return (
