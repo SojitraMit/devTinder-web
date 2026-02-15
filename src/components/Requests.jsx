@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addRequests } from "../utils/requestSlice";
 import HorizontalCard from "./HorizontalCard";
 import InfoCard from "./InfoCard";
+import Lottie from "lottie-react";
+import noDataAnimation from "../assets/No-Data.json";
 
 const Requests = () => {
   const dispatch = useDispatch();
@@ -37,9 +39,11 @@ const Requests = () => {
 
   if (requests.length === 0)
     return (
-      <div className="flex h-screen justify-center my-auto">
-        {" "}
-        <span className="my-auto">No Requests Found!!</span>
+      <div className="flex flex-col justify-center items-center min-h-[calc(100vh-64px)]">
+        <div className="w-64">
+          <Lottie animationData={noDataAnimation} loop />
+        </div>
+        <p className=" text-gray-500">No Requests Found!!</p>
       </div>
     );
 

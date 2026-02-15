@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
 import HorizontalCard from "./HorizontalCard";
 import InfoCard from "./InfoCard";
+import Lottie from "lottie-react";
+import noDataAnimation from "../assets/No-Data.json";
 
 const Connections = () => {
   const dispatch = useDispatch();
@@ -38,9 +40,12 @@ const Connections = () => {
     );
   if (connections.length === 0)
     return (
-      <h1 className="flex justify-center h-screen items-center">
-        No connections found
-      </h1>
+      <div className="flex flex-col justify-center items-center min-h-[calc(100vh-64px)]">
+        <div className="w-64">
+          <Lottie animationData={noDataAnimation} loop />
+        </div>
+        <p className=" text-gray-500">No Connections Found!!</p>
+      </div>
     );
   return (
     <div className="min-h-screen   m-6  mx-auto">

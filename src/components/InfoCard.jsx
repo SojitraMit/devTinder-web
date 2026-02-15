@@ -2,6 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { removeInfo } from "../utils/infoSlice";
+import Lottie from "lottie-react";
+import PremiumGold from "../assets/PremiumGold.json";
+import TwinkleCrown from "../assets/TWINKLECROWN!.json";
 
 const InfoCard = () => {
   const dispatch = useDispatch();
@@ -18,6 +21,7 @@ const InfoCard = () => {
     emailId,
     github,
     linkedin,
+    isPremium,
   } = data;
   return (
     <div
@@ -40,10 +44,15 @@ const InfoCard = () => {
           <div className="pt-7 pl-3 flex-row space-y-1 items-center">
             <h1 className="font-bold text-xl flex">
               {firstName} {lastName}‌‌ ‌
-              <img
+              {/* <img
                 className="h-6 mt-1"
                 src="https://img.icons8.com/?size=96&id=2sZ0sdlG9kWP&format=png"
-              />
+              /> */}
+              {isPremium && (
+                <div className="w-8 h-8 -ml-1">
+                  <Lottie animationData={TwinkleCrown} loop />
+                </div>
+              )}
             </h1>
             <p className="text-gray-300">
               • {age} yrs ‌ ‌‌ • {gender}

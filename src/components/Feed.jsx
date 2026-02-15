@@ -8,6 +8,7 @@ import UserCard from "./UserCard";
 import InfoCard from "./InfoCard";
 import Lottie from "lottie-react";
 import noDataAnimation from "../assets/No-Data.json";
+import loading from "../assets/loading.json";
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const Feed = () => {
     return (
       <div className="flex h-screen justify-center my-auto">
         {" "}
+        {/* <Lottie animationData={loading} /> */}
         <span className="loading loading-dots loading-xl "></span>
       </div>
     );
@@ -43,7 +45,7 @@ const Feed = () => {
 
   if (!Array.isArray(feed) || feed.length === 0) {
     return (
-      <div className="flex flex-col justify-center items-center h-screen">
+      <div className="flex flex-col justify-center items-center min-h-[calc(100vh-64px)]">
         <div className="w-64">
           <Lottie animationData={noDataAnimation} loop />
         </div>

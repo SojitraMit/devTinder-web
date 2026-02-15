@@ -120,7 +120,7 @@ const NavBar = () => {
                   to="/premium"
                   className={({ isActive }) =>
                     isActive
-                      ? "bg-yellow-300 text-black p-2 font-bold rounded-2xl transition-all duration-300"
+                      ? "bg-[#FFA800] text-black p-2 font-bold rounded-2xl transition-all duration-300"
                       : "text-yellow-300 font-semibold  transition-all duration-300"
                   }>
                   Premium{" "}

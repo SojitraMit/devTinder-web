@@ -272,6 +272,7 @@ const EditProfile = ({ user }) => {
               about,
               gitHubUrl,
               linkedInUrl,
+              isPremium: user.isPremium,
             }}
           />
         </div>

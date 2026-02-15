@@ -1,7 +1,125 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
+import PremiumGoldAnimation from "../assets/PremiumGold.json";
+import TwinkleCrowen from "../assets/TWINKLECROWN!.json";
 
 const Premium = () => {
-  return (
+  const user = useSelector((store) => store.user);
+  const premiumStatus = user?.membershipType || "None";
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const verifyPremium = async (plan) => {
+    try {
+      const user = await axios.post(
+        BASE_URL + "/premium/verify",
+        { plan },
+        { withCredentials: true },
+      );
+      dispatch(addUser(user.data.data));
+      console.log(user);
+    } catch (error) {
+      console.error("Error verifying premium:", error);
+    }
+  };
+
+  const loadRazorpayScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+  const handleBuyClick = async (plan) => {
+    // const order = await axios.post(
+    //   BASE_URL + "/payment/create",
+    //   { plan },
+    //   { withCredentials: true },
+    // );
+
+    const isLoaded = await loadRazorpayScript(
+      "https://checkout.razorpay.com/v1/checkout.js",
+    );
+
+    const options = {
+      key: "rzp_test_CkjkBHB3TQcyK1", // Replace with your Razorpay key_id
+      amount: "50000", // Amount is in currency subunits.
+      currency: "INR",
+      name: "devTinder",
+      description: "Test Transaction",
+      // order_id: "order_IluGWxBm9U8zJ8", // This is the order_id created in the backend
+      // Your success URL
+      prefill: {
+        name: "abc",
+        email: "abc@example.com",
+        contact: "9999999999",
+      },
+      theme: {
+        color: "#F37254",
+      },
+      handler: function (response) {
+        verifyPremium(plan);
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
+
+  return premiumStatus === "Gold" ? (
+    <div className="min-h-[calc(100vh-64px)] bg-gray-900 text-white flex items-center justify-center px-4">
+      <div className="bg-gray-800 rounded-3xl shadow-2xl p-6 max-w-lg w-full text-center border border-yellow-500/30">
+        {/* Icon */}
+        <div className="flex justify-center mb-6">
+          <div className="bg-yellow-500/20   rounded-full">
+            {/* <span className="text-5xl">👑</span> */}
+            <div className="w-36 h-36">
+              <Lottie animationData={TwinkleCrowen} loop />
+            </div>
+          </div>
+        </div>
+
+        {/* Title */}
+        <h1 className="text-3xl font-bold text-yellow-400 mb-3">
+          Welcome to Gold Membership!
+        </h1>
+
+        {/* Subtitle */}
+        <p className="text-gray-400 mb-6">
+          You are now a Premium Member. Enjoy exclusive features and unlock your
+          full experience on devTinder.
+        </p>
+
+        {/* Benefits */}
+        <div className="bg-gray-900 rounded-xl p-6 mb-8 text-left">
+          <h2 className="text-lg font-semibold mb-4 text-yellow-400">
+            Your Premium Benefits:
+          </h2>
+          <ul className="space-y-3 text-gray-300">
+            <li>✔ Unlimited profile views</li>
+            <li>✔ Advanced search filters</li>
+            <li>✔ Priority support</li>
+            <li>✔ Profile boost visibility</li>
+          </ul>
+        </div>
+
+        {/* CTA Button */}
+        <button
+          onClick={() => navigate("/feed")}
+          className="w-full py-3 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-black font-semibold transition duration-300">
+          Explore Now 🚀
+        </button>
+      </div>
+    </div>
+  ) : (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center py-16 px-4">
       {/* Page Title */}
       <h1 className="text-3xl font-bold mb-4">Upgrade Your Membership</h1>
@@ -26,8 +144,10 @@ const Premium = () => {
             <li>✔ Basic support</li>
           </ul>
 
-          <button className="w-full py-3 rounded-xl bg-gray-600 hover:bg-gray-500 transition font-semibold">
-            Choose Silver
+          <button
+            className="w-full py-3 rounded-xl bg-gray-600 hover:bg-gray-500 transition font-semibold"
+            onClick={() => handleBuyClick("Silver")}>
+            {premiumStatus === "Silver" ? "Already Silver" : "Choose Silver"}
           </button>
         </div>
 
@@ -52,8 +172,10 @@ const Premium = () => {
             <li>✔ Boost profile visibility</li>
           </ul>
 
-          <button className="w-full py-3 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-black transition font-semibold">
-            Choose Gold
+          <button
+            className="paypal-button-container w-full py-3 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-black transition font-semibold"
+            onClick={() => handleBuyClick("Gold")}>
+            {premiumStatus === "Silver" ? "Upgrade to Gold" : "Choose Gold"}
           </button>
         </div>
       </div>

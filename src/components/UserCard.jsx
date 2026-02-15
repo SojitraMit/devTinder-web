@@ -5,6 +5,9 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { removeFeed } from "../utils/feedSlice";
 import { addInfo, addShow } from "../utils/infoSlice";
+import Lottie from "lottie-react";
+import PremiumGold from "../assets/PremiumGold.json";
+import TwinkleCrowen from "../assets/TWINKLECROWN!.json";
 
 const UserCard = ({ user }) => {
   const {
@@ -18,6 +21,7 @@ const UserCard = ({ user }) => {
     _id,
     gitHubUrl,
     linkedInUrl,
+    isPremium,
   } = user;
   const [show, setShow] = useState(false);
   const [toastInterested, setToastInterested] = useState(false);
@@ -131,6 +135,11 @@ const UserCard = ({ user }) => {
           <h2 className="card-title font-extrabold text-white">
             {firstName + " "}
             {lastName}
+            {isPremium &&  <div className="h-9 w-9 -ml-1">
+              {" "}
+              <Lottie animationData={TwinkleCrowen} />
+            </div>}
+           
           </h2>
           {age && gender && (
             <p className=" flex gap-4 text-white font-bold">
@@ -190,23 +199,26 @@ const UserCard = ({ user }) => {
       </div>
       {toastInterested && (
         <div className="toast">
-        <div className="alert alert-success font-semibold">
-          <span>
-            Request send to
-            <span className="font-extrabold "> {firstName}</span> successfully!
-          </span>
+          <div className="alert alert-success font-semibold">
+            <span>
+              Request send to
+              <span className="font-extrabold "> {firstName}</span>{" "}
+              successfully!
+            </span>
+          </div>
         </div>
-      </div>)}
-
-      {toastIgnored && <div className="toast">
-        <div className="alert alert-error font-semibold">
-          <span>
-            You have ignored
-            <span className="font-extrabold "> {firstName}</span> successfully!
-          </span>
+      )}
+      {toastIgnored && (
+        <div className="toast">
+          <div className="alert alert-error font-semibold">
+            <span>
+              You have ignored
+              <span className="font-extrabold "> {firstName}</span>{" "}
+              successfully!
+            </span>
+          </div>
         </div>
-      
-      </div>}
+      )}
       ;
     </>
   );
