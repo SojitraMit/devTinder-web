@@ -44,7 +44,6 @@ const HorizontalCard = ({ connections, type }) => {
   return (
     <div className="    ">
       {connections.map((connection) => {
-        console.log(connection);
         const connectionId = connection._id;
         const user = isConnection ? connection : connection.fromUserId;
 

@@ -10,17 +10,19 @@ export default function Chat() {
   const userId = user?._id;
   const firstName = user?.firstName;
 
-  const [messages, setMessages] = useState([
-    { id: 1, text: "Hey there 👋", sender: "them" },
-    { id: 2, text: "Hi! How are you?", sender: "me" },
-  ]);
+  const [messages, setMessages] = useState([]);
 
   const [input, setInput] = useState("");
 
   useEffect(() => {
     console.log(user);
     const socket = createSocketConnection();
-    socket.emit("joinChat", { userId, targetUserId });
+    socket.emit("joinChat", { firstName, userId, targetUserId });
+
+    socket.on("messageRecived", ({ firstName, text }) => {
+      console.log(firstName + ":" + text);
+      setMessages((messages) => [...messages, { firstName, text }]);
+    });
 
     return () => {
       socket.disconnect();
@@ -35,6 +37,7 @@ export default function Chat() {
       targetUserId,
       text: input,
     });
+    setInput("");
   };
 
   return (
@@ -49,43 +52,45 @@ export default function Chat() {
 
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto p-6 space-y-4">
-        {/* Incoming Message */}
-        <div className="chat chat-start">
-          <div className="chat-image avatar">
-            <div className="w-10 rounded-full">
-              <img
-                alt="profile"
-                src="https://img.daisyui.com/images/profile/demo/kenobee@192.webp"
-              />
+        {messages?.map((msg, index) => {
+          return msg.firstName !== firstName ? (
+            <div key={index} className="chat chat-start">
+              <div className="chat-image avatar">
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="profile"
+                    src="https://img.daisyui.com/images/profile/demo/kenobee@192.webp"
+                  />
+                </div>
+              </div>
+              <div className="chat-header">
+                {msg.firstName}
+                <time className="text-xs opacity-50 ml-2">12:45</time>
+              </div>
+              <div className="chat-bubble">{msg.text}</div>
+              <div className="chat-footer opacity-50">Delivered</div>
             </div>
-          </div>
-          <div className="chat-header">
-            User
-            <time className="text-xs opacity-50 ml-2">12:45</time>
-          </div>
-          <div className="chat-bubble">Hello there 👋</div>
-          <div className="chat-footer opacity-50">Delivered</div>
-        </div>
-
-        {/* Outgoing Message */}
-        <div className="chat chat-end">
-          <div className="chat-image avatar">
-            <div className="w-10 rounded-full">
-              <img
-                alt="profile"
-                src="https://img.daisyui.com/images/profile/demo/anakeen@192.webp"
-              />
+          ) : (
+            <div key={index} className="chat chat-end">
+              <div className="chat-image avatar">
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="profile"
+                    src="https://img.daisyui.com/images/profile/demo/anakeen@192.webp"
+                  />
+                </div>
+              </div>
+              <div className="chat-header">
+                You
+                <time className="text-xs opacity-50 ml-2">12:46</time>
+              </div>
+              <div className="chat-bubble bg-indigo-500 text-white">
+                {msg.text}
+              </div>
+              <div className="chat-footer opacity-50">Seen</div>
             </div>
-          </div>
-          <div className="chat-header">
-            You
-            <time className="text-xs opacity-50 ml-2">12:46</time>
-          </div>
-          <div className="chat-bubble bg-indigo-500 text-white">
-            Hi! How are you?
-          </div>
-          <div className="chat-footer opacity-50">Seen</div>
-        </div>
+          );
+        })}
       </div>
 
       {/* Input */}
