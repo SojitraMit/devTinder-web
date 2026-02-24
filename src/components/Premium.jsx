@@ -113,14 +113,14 @@ const Premium = () => {
 
         {/* CTA Button */}
         <button
-          onClick={() => navigate("/feed")}
+          onClick={() => navigate("/")}
           className="w-full py-3 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-black font-semibold transition duration-300">
           Explore Now 🚀
         </button>
       </div>
     </div>
   ) : (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center py-16 px-4">
+    <div className="min-h-[calc(100vh-70px)] bg-gray-900 text-white flex flex-col items-center py-16 px-4">
       {/* Page Title */}
       <h1 className="text-3xl font-bold mb-4">Upgrade Your Membership</h1>
       <p className="text-gray-400 mb-12 text-center max-w-xl">
@@ -139,9 +139,14 @@ const Premium = () => {
           </p>
 
           <ul className="space-y-3 text-gray-300 mb-8">
+            <li className="flex items-center">
+              ✔ Get Crown{" "}
+              <div className="h-8 w-8">
+                <Lottie animationData={TwinkleCrowen} />
+              </div>
+            </li>
             <li>✔ View more profiles</li>
             <li>✔ Limited premium filters</li>
-            <li>✔ Basic support</li>
           </ul>
 
           <button
@@ -166,10 +171,15 @@ const Premium = () => {
           </p>
 
           <ul className="space-y-3 text-gray-300 mb-8">
+            <li className="flex items-center">
+              ✔ Get Crown{" "}
+              <div className="h-8 w-8">
+                <Lottie animationData={TwinkleCrowen} />
+              </div>
+            </li>
+            <li>✔ Unlock Chat option </li>
             <li>✔ Unlimited profile views</li>
-            <li>✔ Advanced filters</li>
             <li>✔ Priority support</li>
-            <li>✔ Boost profile visibility</li>
           </ul>
 
           <button

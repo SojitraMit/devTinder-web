@@ -23,7 +23,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="navbar bg-base-300 shadow-sm">
+    <div className="navbar bg-base-300 fixed z-20  shadow-sm">
       <div className="flex-1">
         <svg
           width="240"
@@ -32,7 +32,7 @@ const NavBar = () => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           className="cursor-pointer"
-          onClick={() => navigate("/feed")}>
+          onClick={() => navigate("/")}>
           <rect
             x="4"
             y="8"
@@ -84,7 +84,7 @@ const NavBar = () => {
             <ul className="flex gap-6 ">
               <li>
                 <NavLink
-                  to="/feed"
+                  to="/"
                   className={({ isActive }) =>
                     isActive
                       ? "bg-indigo-600 text-white p-2 rounded-2xl transition-all duration-300"

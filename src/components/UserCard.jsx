@@ -67,8 +67,8 @@ const UserCard = ({ user }) => {
   return (
     <>
       <div
-        className="card bg-base-300 w-96 shadow-sm h-[620px] border-4 border-black drop-shadow-sm
-  mt-0">
+        className={`card bg-base-300 w-96  h-[620px] border-4 border-black drop-shadow-sm
+  mt-0 `}>
         <figure className="absolute -z-10">
           <img
             className="h-[612px]  w-96  object-cover  overflow-hidden"
@@ -135,11 +135,12 @@ const UserCard = ({ user }) => {
           <h2 className="card-title font-extrabold text-white">
             {firstName + " "}
             {lastName}
-            {isPremium &&  <div className="h-9 w-9 -ml-1">
-              {" "}
-              <Lottie animationData={TwinkleCrowen} />
-            </div>}
-           
+            {isPremium && (
+              <div className="h-9 w-9 -ml-1">
+                {" "}
+                <Lottie animationData={TwinkleCrowen} />
+              </div>
+            )}
           </h2>
           {age && gender && (
             <p className=" flex gap-4 text-white font-bold">
@@ -219,7 +220,6 @@ const UserCard = ({ user }) => {
           </div>
         </div>
       )}
-      ;
     </>
   );
 };

@@ -30,7 +30,7 @@ const Login = () => {
       );
 
       dispatch(addUser(res.data));
-      navigate("/feed");
+      navigate("/");
     } catch (err) {
       console.log(err);
       setErrorMessage(err.response?.data?.message || "Something went wronge!!");
@@ -53,7 +53,7 @@ const Login = () => {
       );
 
       dispatch(addUser(res.data.data));
-      navigate("/feed");
+      navigate("/");
     } catch (err) {
       console.log(err);
       setErrorMessage(err.response?.data?.message || "Something went wronge!!");

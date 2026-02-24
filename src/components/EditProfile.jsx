@@ -246,7 +246,7 @@ const EditProfile = ({ user }) => {
               <div className="flex gap-2 ">
                 <button
                   className="btn btn-outline btn-sm w-1/2 text-white"
-                  onClick={() => navigate("/feed")}>
+                  onClick={() => navigate("/")}>
                   Cancel
                 </button>
                 <button

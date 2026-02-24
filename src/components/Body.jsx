@@ -41,6 +41,7 @@ const Body = () => {
   return (
     <div>
       <NavBar />
+      <div className="h-[71px]"></div>
       <Outlet />
     </div>
   );

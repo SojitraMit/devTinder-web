@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeRequest } from "../utils/requestSlice";
 import Lottie from "lottie-react";
 import TwinkleCrown from "../assets/TWINKLECROWN!.json";
@@ -9,6 +10,7 @@ import chat from "../assets/Chat.json";
 import { useNavigate } from "react-router-dom";
 
 const HorizontalCard = ({ connections, type }) => {
+  const membershipType = useSelector((store) => store.user.membershipType);
   const isConnection = type === "connection";
 
   const dispatch = useDispatch();
@@ -75,14 +77,16 @@ const HorizontalCard = ({ connections, type }) => {
             <div className="ml-6 pt-1 space-y-1 w-[430px]">
               <h1 className="flex font-bold text-xl">
                 {firstName} {lastName}
-                {isPremium && (
-                  <div className="w-8 h-8 ">
+                {isPremium ? (
+                  <div className="w-8 h-8 mx-[2px] ">
                     <Lottie
                       animationData={TwinkleCrown}
                       loop
                       style={{ width: "100%", height: "100%" }}
                     />
                   </div>
+                ) : (
+                  <div></div>
                 )}
               </h1>
 
@@ -119,21 +123,39 @@ const HorizontalCard = ({ connections, type }) => {
                   />
                   More Info
                 </button>
-                <div>
-                  <button
-                    className="px-3  rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 
+                {membershipType === "Gold" ? (
+                  <div>
+                    <button
+                      className="px-3  rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 
                    text-white font-semibold shadow-lg 
                    hover:from-cyan-600 hover:to-blue-700 
                    hover:shadow-cyan-500/40 
                    hover:scale-105 cursor-pointer 
                    transition-all duration-300 ease-in-out flex justify-center mx-auto pr-5"
-                    onClick={() => navigate(`/chat/${_id}`)}>
-                    <div className="h-10 w-10 ">
-                      <Lottie animationData={chat} autoPlay loop />
-                    </div>
-                    <div className="my-auto">Chat</div>
-                  </button>
-                </div>
+                      onClick={() => navigate(`/chat/${_id}`)}>
+                      <div className="h-10 w-10 ">
+                        <Lottie animationData={chat} autoPlay loop />
+                      </div>
+                      <div className="my-auto">Chat</div>
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <button
+                      className="px-3   rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 
+                   text-white font-semibold shadow-lg 
+                   hover:from-cyan-600 hover:to-blue-700 
+                   hover:shadow-cyan-500/40 
+                   hover:scale-105 cursor-pointer
+                   transition-all duration-300 ease-in-out flex justify-center mx-auto pr-5"
+                      onClick={() => navigate(`/chat/${_id}`)}>
+                      <div className="h-10 w-10 ">
+                        <Lottie animationData={chat} autoPlay loop />
+                      </div>
+                      <div className="my-auto">Chat</div>
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="text-center flex-row space-y-4  my-auto  p-6">
