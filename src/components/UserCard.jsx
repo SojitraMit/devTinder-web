@@ -81,7 +81,7 @@ const UserCard = ({ user }) => {
           <a
             href={gitHubUrl}
             target="_blank"
-            className="flex justify-center items-center gap-1 font-bold hover:bg-black border-gray-800 border-2 cursor-pointer bg-gray-500/20 rounded-2xl p-1">
+            className="flex justify-center items-center gap-1 font-bold hover:bg-black border-gray-900 border-2 cursor-pointer bg-gray-500/20 rounded-2xl p-1">
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -97,7 +97,7 @@ const UserCard = ({ user }) => {
           <a
             href={linkedInUrl}
             target="_blank"
-            className="flex justify-center items-center gap-1 font-bold hover:bg-sky-400 hover:text-back cursor-pointer   border-sky-400 border-2 bg-sky-500/20 rounded-2xl p-1">
+            className="flex justify-center items-center gap-1 font-bold hover:bg-sky-400 hover:text-back cursor-pointer   border-sky-900 border-2 bg-sky-500/20 rounded-2xl p-1">
             <svg
               stroke="currentColor"
               className="bg-white text-sky-400 "

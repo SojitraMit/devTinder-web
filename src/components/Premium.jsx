@@ -23,7 +23,6 @@ const Premium = () => {
         { withCredentials: true },
       );
       dispatch(addUser(user.data.data));
-      console.log(user);
     } catch (error) {
       console.error("Error verifying premium:", error);
     }

@@ -19,10 +19,11 @@ const InfoCard = () => {
     about,
     photoUrl,
     emailId,
-    github,
-    linkedin,
+    gitHubUrl,
+    linkedInUrl,
     isPremium,
   } = data;
+
   return (
     <div
       className="absolute top-1/2 left-1/2 
@@ -85,7 +86,7 @@ const InfoCard = () => {
               </h4>
               <div class="flex flex-wrap gap-3">
                 <a
-                  href={github}
+                  href={gitHubUrl}
                   target="_blank"
                   rel="noreferrer"
                   class="btn btn-sm btn-outline gap-2">
@@ -102,7 +103,7 @@ const InfoCard = () => {
                   <span class="hidden sm:inline">GitHub</span>
                 </a>
                 <a
-                  href={linkedin}
+                  href={linkedInUrl}
                   target="_blank"
                   rel="noreferrer"
                   class="btn btn-sm btn-outline btn-info gap-2">
@@ -119,7 +120,7 @@ const InfoCard = () => {
                   <span class="hidden sm:inline">LinkedIn</span>
                 </a>
                 <a
-                  href="https://x.com/omakr"
+                  href={`https://x.com/${firstName}${lastName}`}
                   target="_blank"
                   rel="noreferrer"
                   class="btn btn-sm btn-outline btn-info gap-2">
@@ -136,7 +137,7 @@ const InfoCard = () => {
                   <span class="hidden sm:inline">Twitter</span>
                 </a>
                 <a
-                  href="https://myportfolio-sable-chi.vercel.app/"
+                  href={`https://${firstName.toLowerCase()}-${lastName.toLowerCase()}`}
                   target="_blank"
                   rel="noreferrer"
                   class="btn btn-sm btn-outline btn-success gap-2">

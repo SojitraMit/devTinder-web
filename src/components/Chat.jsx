@@ -65,12 +65,10 @@ export default function Chat() {
   }, []);
 
   useEffect(() => {
-    console.log(user);
     const socket = createSocketConnection();
     socket.emit("joinChat", { firstName, userId, targetUserId });
 
     socket.on("messageRecived", ({ firstName, text }) => {
-      console.log(firstName + ":" + text);
       setMessages((messages) => [
         ...messages,
         { firstName, text, time: new Date() },
