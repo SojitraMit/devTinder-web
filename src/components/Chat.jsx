@@ -61,6 +61,7 @@ export default function Chat() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchChatMessages();
   }, []);
 
