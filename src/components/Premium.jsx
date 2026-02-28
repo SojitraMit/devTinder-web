@@ -49,7 +49,7 @@ const Premium = () => {
     );
 
     const options = {
-      key: "rzp_test_CkjkBHB3TQcyK1", // Replace with your Razorpay key_id
+      key: "rzp_test_VSdp7X3K39GwBK", // Replace with your Razorpay key_id
       amount: "50000", // Amount is in currency subunits.
       currency: "INR",
       name: "devTinder",
