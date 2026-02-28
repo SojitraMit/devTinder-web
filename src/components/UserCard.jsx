@@ -66,18 +66,17 @@ const UserCard = ({ user }) => {
 
   return (
     <>
-      <div
-        className={`card bg-base-300 w-96 h-[620px] border-4 border-black drop-shadow-sm mt-0 relative overflow-hidden`}>
+      <div className="card bg-base-300 w-96 h-[620px] border-4 border-black drop-shadow-sm mt-0 relative overflow-hidden">
         {/* Background Image */}
         <figure className="absolute inset-0 -z-10">
           <img
-            className="h-full w-full object-cover"
+            className="h-[612px] w-96 object-cover"
             src={photoUrl}
             alt="profile"
           />
 
-          {/* Gradient Overlay for Text Visibility */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent"></div>
+          {/* LIGHT overlay (not heavy gradient) */}
+          <div className="absolute inset-0 bg-black/30"></div>
         </figure>
 
         {/* Top Buttons */}
@@ -86,7 +85,18 @@ const UserCard = ({ user }) => {
             href={gitHubUrl}
             target="_blank"
             rel="noreferrer"
-            className="flex justify-center items-center gap-1 font-bold hover:bg-black border-gray-900 border-2 cursor-pointer bg-gray-500/30 text-white rounded-2xl p-1 backdrop-blur-md">
+            className="flex justify-center items-center gap-1 font-bold 
+      bg-black/40 text-white border-gray-900 border-2 
+      rounded-2xl p-1 backdrop-blur-sm hover:bg-black/60 transition">
+            {/* KEEP YOUR SVG */}
+            <svg
+              stroke="currentColor"
+              fill="currentColor"
+              viewBox="0 0 496 512"
+              height="1em"
+              width="1em">
+              <path d="M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2..." />
+            </svg>
             GitHub
           </a>
 
@@ -94,12 +104,24 @@ const UserCard = ({ user }) => {
             href={linkedInUrl}
             target="_blank"
             rel="noreferrer"
-            className="flex justify-center items-center gap-1 font-bold hover:bg-sky-500 border-sky-900 border-2 bg-sky-500/30 text-white rounded-2xl p-1 backdrop-blur-md">
+            className="flex justify-center items-center gap-1 font-bold 
+      bg-sky-500/40 text-white border-sky-900 border-2 
+      rounded-2xl p-1 backdrop-blur-sm hover:bg-sky-500/60 transition">
+            {/* KEEP YOUR SVG */}
+            <svg
+              stroke="currentColor"
+              fill="currentColor"
+              viewBox="0 0 448 512"
+              height="1em"
+              width="1em">
+              <path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4..." />
+            </svg>
             Linkedin
           </a>
 
           <button
-            className="btn btn-outline ml-20 bg-white/30 backdrop-blur-md text-white hover:bg-white/50 font-bold rounded-2xl"
+            className="btn btn-outline ml-20 bg-white/30 text-white 
+      backdrop-blur-sm font-bold rounded-2xl hover:bg-white/50"
             onClick={() => fetchUserInfo(_id)}>
             Info
           </button>
@@ -107,12 +129,11 @@ const UserCard = ({ user }) => {
 
         <div className="h-[550px]"></div>
 
-        {/* Bottom Content Section */}
-        <div className="card-body pb-2 bg-black/40 backdrop-blur-md rounded-b-2xl">
+        {/* Bottom Content */}
+        <div className="card-body pb-2 bg-black/35 backdrop-blur-sm rounded-b-2xl">
           {/* Name */}
           <h2 className="card-title font-extrabold text-white text-2xl drop-shadow-lg">
-            {firstName + " "}
-            {lastName}
+            {firstName} {lastName}
             {isPremium && (
               <div className="h-9 w-9 -ml-1">
                 <Lottie animationData={TwinkleCrowen} />
@@ -146,10 +167,7 @@ const UserCard = ({ user }) => {
 
           {/* About */}
           <div>
-            <p
-              className={
-                !show ? "line-clamp-2 text-gray-100" : "text-gray-100"
-              }>
+            <p className={`text-gray-100 ${!show ? "line-clamp-2" : ""}`}>
               <span className="font-extrabold text-cyan-300">About:</span>{" "}
               {about}
             </p>
@@ -157,22 +175,26 @@ const UserCard = ({ user }) => {
             {about.length > 93 && (
               <button
                 onClick={() => setShow(!show)}
-                className="text-green-300 font-bold cursor-pointer hover:text-green-200">
+                className="text-green-300 font-bold hover:text-green-200">
                 {show ? "Show less" : "Show more..."}
               </button>
             )}
           </div>
 
-          {/* Buttons */}
+          {/* Action Buttons */}
           <div className="card-actions justify-between mt-2">
             <button
-              className="btn btn-outline btn-error backdrop-blur-md border-2 text-[15px] font-extrabold rounded-2xl w-36 hover:brightness-110 hover:scale-105 duration-300 hover:text-black transition-all"
+              className="btn btn-outline btn-error backdrop-blur-sm border-2 
+        text-[15px] font-extrabold rounded-2xl w-36 
+        hover:brightness-110 hover:scale-105 duration-300"
               onClick={() => handleSendRequest("ignored", _id)}>
               Ignored
             </button>
 
             <button
-              className="btn btn-outline btn-success backdrop-blur-md font-extrabold border-2 text-[15px] rounded-2xl w-36 hover:brightness-110 hover:scale-105 hover:text-black duration-300 transition-all"
+              className="btn btn-outline btn-success backdrop-blur-sm border-2 
+        text-[15px] font-extrabold rounded-2xl w-36 
+        hover:brightness-110 hover:scale-105 duration-300"
               onClick={() => handleSendRequest("interested", _id)}>
               Interested
             </button>
