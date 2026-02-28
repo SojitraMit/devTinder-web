@@ -177,7 +177,7 @@ const UserCard = ({ user }) => {
 
           {/* Skills */}
           {skills && (
-            <p>
+            <p className="line-clamp-1">
               <span className="text-cyan-300 font-extrabold">Skills:</span>{" "}
               <span className="text-gray-100 font-bold">
                 {skills.join(", ")}
