@@ -227,7 +227,7 @@ const Login = () => {
                 Password<span className="text-red-500">*</span>
               </label>
               <input
-                type="text"
+                type="password"
                 className="input w-full"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
