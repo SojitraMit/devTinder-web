@@ -18,12 +18,8 @@ const EditProfile = ({ user }) => {
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
   const [about, setAbout] = useState(user.about);
   const [emailId, setEmailId] = useState(user.emailId);
-  const [gitHubUrl, setGithubUrl] = useState(
-    user.github || "https://github.com/",
-  );
-  const [linkedInUrl, setLinkedInUrl] = useState(
-    user.linkedin || "https://www.linkedin.com/",
-  );
+  const [gitHubUrl, setGithubUrl] = useState(user.gitHubUrl);
+  const [linkedInUrl, setLinkedInUrl] = useState(user.linkedInUrl);
   const [skills, setSkills] = useState(user.skills || []);
   const [errorMessage, setErrorMessage] = useState();
   const infoShow = useSelector((store) => store.info.show);
